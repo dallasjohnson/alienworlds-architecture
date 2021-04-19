@@ -30,11 +30,17 @@
 This smart contract is the mining process that users of the app perform to earn NFTs and Telium tokens. The actions include:
     
 * `setparam(uint64_t key, uint64_t value)` - Creating and updating bots
+  * requires auth: `m.federation@setparam` 
 * `testparam(name key)` - Testing a key matches an existing bot value
-* Clear params (in batches of 50 to prevent timeout)
+  * requires auth: `m.federation@setparam` 
+* `clearparams` - Clear params (in batches of 50 to prevent timeout)
+  * requires auth `m.federation@active`
 * `setbag(name account, vector<uint64_t> items)` - Set miner's tool bag (with a max of 3 tools)
+  * requires auth `account@active`
 * `setland(name account, uint64_t land_id)` - Set the current land to mine on for a given miner (mint a tool if the miner is new)
+  * requires auth `account@active`
 * `mine(name miner, vector<char> nonce)` - Mine action
+  * requires auth `miner@active`
     * miner must have preselected Land to mine on
     * the land must have something to mine (ease > 0)
     * land commission must be less than 25%
@@ -50,15 +56,21 @@ This smart contract is the mining process that users of the app perform to earn 
     * if landowner is not one the key alien worlds accounts send commission to the owner.
     * log the mining event results.
     * Update the mining times for tools in the current bag.
+
 * `fill(name account, name planet_name)` - Updates the amount of available TLM that can be mined for a planet based on previously deposited TLM amount in the deposits table for this account.
+    * requires auth `federation@fill`
 * `procrand()` - as the mining actions occur random number requests accumulate in in the `randos` table so they can be batch processed more efficiently that one request per random number.
-* `receiverand(uint64_t assoc_id, checksum256 random_value)` - handles the returned randomvalue to process the pending randos records in batches of up to 20 record.
+  * requries auth `m.federation@active` 
+* `receiverand(uint64_t assoc_id, checksum256 random_value)`
+  * requires auth `m.federation@rando` 
+    * handles the returned randomvalue to process the pending randos records in batches of up to 20 record.
     * For each record basic checks for game logic
     * the luck of each is adjusted (based on miner luck, land luck and if they are a bot.
     * if the luck is still > 0 more random numbers are derived to possibly mint a new NFT.
     * if a new NFT is created it is added to the pending claims for that account where they are claimed in a following deferred transaction. (deferred to save on CPU time processing).
     * The new minting is logged to the fed contract to be able to watch the action as an inline action.
 * `setnfts(name rarity, vector<uint32_t> template_ids)` - Adds new NFTs to the mining bucket ready to be won through mining.
+  * requires auth `self`
 
 ## Storage
 

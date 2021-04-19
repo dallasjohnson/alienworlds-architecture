@@ -33,28 +33,50 @@
 	
 This smart contract is responsible for many of the admin features relevant to all of the planets including:
     
-* `addplanet(name planet_name, string title, symbol dac_symbol, string metadata)` - Create planets
-* `updateplanet(name planet_name, string title, string metadata, bool active)` - Update planets
-* `removeplanet(name planet_name)` - Remove planets
+* `addplanet(name planet_name, string title, symbol dac_symbol, string metadata)` - Create a new planet in the Alien Worlds federation.
+    * requires auth: `federation@mint`
+* `updateplanet(name planet_name, string title, string metadata, bool active)` - Updates metadata or active for a planet.
+    * requires auth: `federation@mint`
+* `removeplanet(name planet_name)` - Removes a planet from the federation
+    * requires auth: `federation@active`
 * `setmap(name planet_name, uint16_t x, uint16_t y, uint64_t asset_id)` - Set a map point for the planet
-* `setavatar(name account, uint64_t avatar_id)` - Set an avatar NFT for each user (either using a provided one or create a default one)
-* `settag(name account, string tag)` - Set a tag for each user
-* `miningstart(name receiver, uint32_t preset_id)` - Start mining (mint a shovel for the user)
-* `setprofitshr(name owner, uint64_t land_id, uint16_t profit_share)` - Set profit share on land NFT
+    * requires auth: `federation@mint`
+* `setavatar(name account, uint64_t avatar_id)` - Set an avatar NFT for a user (either using a provided one or create a default one if the user is new)
+    * requires auth: `account@active`
+* `settag(name account, string tag)` - Set a tag (string less than 19 characters long) for a user.
+    * requires auth: `account@active`
+* `miningstart(name receiver, uint32_t preset_id)` - Start mining from the Mining contract. mint a standard shovel for a new user(receiver) to the game.
+    * requires auth: `m.federation@random`
+* `setprofitshr(name owner, uint64_t land_id, uint16_t profit_share)` - Set profit share on land NFT as set by the owner of the land NFT only.
+    * requires auth: `owner@active`
 * `setlandnick(name owner, uint64_t land_id, string nickname)` - Set Nickname on land NFT
-* Manage staking of TLM (Once TLM is staked to the Fed contract planet DAC tokens are issued and given in exchange)
-    * `stake(name account, name planet_name, asset quantity)` - Stake to a particular planet, player should have also transferred the required amount of Trilium.
-    * `withdraw(name account)` - Withdraws any deposited tokens
-    * `refund(uint64_t id)` - refund unstaked tokens to the player
-* Handle daily planet claims (weighted by staking and number of NFTs held by planet and in total)
-    * `claim(name planet_name)` - Used by planets to claim their rewards based on staked Trillium
-    * `logclaim(name planet_name, asset planet_quantity, asset mining_quantity)` log the claim action 
-* `ogtransfer(name collection_name, name from, name to, vector<uint64_t> asset_ids, string memo)` - to keep a registry of all land owners based on NFT minting and transfers
-* Fix total stake of each planet
-* `miningnft(name receiver, name rarity, name planet_name)` - Mint NFTs from mining with time-weighted multiplier.
+    * requires auth: `m.federation@active`
+
+Manage staking of TLM (Once TLM is staked to the Fed contract planet DAC tokens are issued and given in exchange)
+* `stake(name account, name planet_name, asset quantity)` - Stake to a particular planet, `account` should have also transferred the required amount of Trilium to this account before this action is called. Mints planet related tokens in exchange for the staking at the planet DAC token exchange rate. The transfer and staking could be called together in one EOSIO transaction to allow complete transaction rollback on any failure in either action.
+    * requires auth: `account@active`
+* `withdraw(name account)` - Withdraws any deposited tokens that have not yet been exchanged for planet DAC tokens for the given account.
+    * requires auth of any valid account
+* `refund(uint64_t id)` - refund unstaked tokens to the player
+    * requires auth of any valid account
+
+Handle daily planet claims (weighted by staking and number of NFTs held by planet and in total)
+* `claim(name planet_name)` - Used by planets to claim their rewards based on staked Trillium and NFTs held with the planet. Also ensure enough is held aside for a daily claim amount for Binance separately from all other planets.
+  * requires auth: `planet_name@active`
+* `logclaim(name planet_name, asset planet_quantity, asset mining_quantity)` log the claim action as an inline action for logging off-chain.
+  * requires auth: `federation@log`
+* `logtransfer(name collection_name, name from, name to, vector<uint64_t> asset_ids, string memo)` - to keep a registry of all land owners based on NFT minting and transfers
+  * requires auth: `atomicassets` as nft transfer action listener only
+* `fixstake(name planet_name, int64_t total_stake)` - Fix total stake of my checking the staked amount staked by each planet.
+  * requires auth: `federation@active`
+* `miningnft(name receiver, name rarity, name planet_name)` - Update a NFT related time-weighted multiplier for the related planet which is then used as part of the mining calculation.
+  * requires auth: `m.federation@random`
 * `awardnft(name receiver, uint8_t randomValue)` - award NFTs based on game results.
+  * requires auth: WIP
 * `agreeterms(name account, uint16_t terms_id, checksum256 terms_hash)` - Capture agreement from users to terms
-* distribute Telium (TLM) tokens
+  * requires auth: `account@active`
+* `filllandpot` - distribute daily Telium (TLM) tokens to land owners pot. WIP
+  * requires auth `federation@claim`
 
 ## Storage
 

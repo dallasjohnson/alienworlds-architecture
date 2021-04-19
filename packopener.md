@@ -6,16 +6,19 @@
         active     1:    1 EOS8TpackZ64RR3zx7FiB4LrMqp5fRS343AvitC2sn842hcxBGRXA
 
 
-## Actions
+## Features
 
 This smart contract manages packs of NFTs including the selection and packing of NFTs into each pack as well as the opening to reveal the contents of each pack to the new pack owner.
+### Packs 
+A pack has a name, symbol and bonus token asset. Once a pack has been added it can also be edited, deleted or activated.
 
-Features include:
-*  Packs - A pack has a name, symbol and bonus token asset. Once a pack has been added it can also be edited, deleted or activated.
-    * `addpack(name pack_name, symbol pack_symbol, extended_asset bonus_ft, bool active)`
-    * `editpack(name pack_name, symbol pack_symbol, extended_asset bonus_ft)`
-    * `activatepack(name pack_name, bool active)`
-    * `delpack(name pack_name)`
+__Pack related actions:__
+
+* `addpack(name pack_name, symbol pack_symbol, extended_asset bonus_ft, bool active)` - Adds a new pack
+  * requires auth ``
+* `editpack(name pack_name, symbol pack_symbol, extended_asset bonus_ft)`
+* `activatepack(name pack_name, bool active)`
+* `delpack(name pack_name)`
 *  Cards - Each pack has cards associated with them that are assigned with {crate, probability} tuples. All the probabilities for each card added to a pack must must add up to 100%. Once these cards are added to a pack their {crate, probability} values can be edited (as long as the total probabilities still totals to 100%. A card can also be deleted from a pack.
     * `addcard(name pack_name, uint64_t card_id, vector<cardprob> card_probabilities)`
     * `editcard(uint64_t card_id, vector<cardprob> card_probabilities)`

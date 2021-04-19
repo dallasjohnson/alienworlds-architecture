@@ -1,0 +1,25 @@
+Questions:::
+
+
+# Shining:
+
+1. Material upgrade within a loop of several assets to shine appears to keep increasing with this:
+`material_grade += asset_id - config.genesis_id;`
+If you have many assets that could become a large number.
+Should this be a cumulative "total" of the material grade for all assets?
+
+2. Should the minting of the new asset create only one new asset even if many were supplied to the shining action or should thee be one asset per supplied asset?
+(This will also play into the previous question about material grade)
+
+# Mining
+3. Can you explain what is the intention of the bots with relation the `setparams` in the mining contract?
+
+4. Where is the "packopener" contract on chain?
+
+5. The `setlandnick` permission of the federation action from Mining doesn't look correctly set.
+
+6. Should the `fixstake` action have the permissions set the `federation@active` or something more specific?
+7. What are the bots in the mining all about?
+8. `receiverand` in the mining expects auth from `ornx.wax` but the permissions on chain are set to `rando` with a key. Should these match?
+9. the shining account still has a link from the burn to the retire action.
+10. Should the vesting action in the token contract be linked to a specific auth rather than active (multisig)?

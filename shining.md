@@ -19,8 +19,11 @@ This smart contract manages the shining of NFT tokens. The owner of particular N
 Features include:
 
 * `addlookup(uint32_t from, uint32_t to, asset cost, uint8_t qty, time_point_sec start_time, bool active)` - adds source and destination NFT template ids as well as a cost and start time and a flag to indicate if the exchange pair is activated.
+  * requires auth `s.federation@active`
 * `tlmtransfer` - This tracks TLM deposits into this account and stores a record in the deposits table associated with the sender. 
-* `nfttransfer` - This tracks NFT transfers into this account. When an NFTs transfer is attempted there is a check to find a matching record in the lookups table for the NFT templates. If an active record is found there is a check for an associated deposit that would cover the cost of the shining process for each NFT. If all the checks are satisfied the received NFTs and deposited TLM are burned and a new NFT is created for the sending account.
+  * requires auth of the TLM contract with the transfer action only
+* `nfttransfer` - This tracks NFT transfers into this account. When an NFTs transfer is attempted, there is a check to find a matching record in the lookups table for the NFT templates. If an active record is found, there is a check for an associated deposit that would cover the cost of the shining process for each NFT. If all the checks are satisfied the received NFTs and deposited TLM are burned and a new NFT is created for the sending account.
+  * requires auth of the `atomicassets` contract with the transfer NFT action related to this collection only.
 
 ## Storage
 
