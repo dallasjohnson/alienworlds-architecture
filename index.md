@@ -29,7 +29,6 @@ The EOSIO blockchain protocol (the underlying blockchain technology of WAX), has
 [Shining](./shining.md) - Administer to upgrading of NFT's to a more advanced NFT through a upgrading process referred to as shining.
 
 [Token Contract](./token.md) - Contract to handle all token related activities such as creating, issuing, transferring and vesting of fungible tokens on the WAX blockcahin.
-
 ### Ethereum blockchain
 
 [Vesting Contract](./vesting.md) - Contract for handling the Alien Worlds tokens on the Ethereum blockchain with functionality more limited to vesting related actions related to tokens on the WAX equivalent [token contract](./token.md)
