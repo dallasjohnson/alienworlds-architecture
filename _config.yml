@@ -4,3 +4,14 @@ plugins:
 relative_links:
   enabled: true
   collections: true
+collections:
+  Contracts:
+    order:
+      - index.md
+      - federation.md
+      - mining.md
+      - packopener.md
+      - shining.md
+      - token.md
+      - vesting.md
+
