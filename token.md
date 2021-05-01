@@ -1,16 +1,17 @@
 # **Alien Worlds token** smart contract:
 ## Blockchain account: `alien.worlds`
-## Permissions
+
+This smart contract manages the fungible tokens related to Alien Worlds on the WAX blockchain. This is closely equivalent to the ERC20 contract on Ethereum based blockchains. It handles the ability to issue, burn, transfer and vest tokens. While most actions are common to token contracts on many types of blockchains the vesting in Alien worlds as the effect of locking Trilium for period and provides a mechanism for moving Trilium between the Wax and Ethereum based blockchains.
+## Technical view of Permissions on chain
+**-- Permission Name** - Requirements to satisfy  
+
+**-- -- -- -- -- Child Permission Name** - Requirements to satisfy
 
     owner - requires 3 from: +1  aamir.worlds@active, +1  aarav.worlds@active, +1  advik.worlds@active, +1  anya.worlds@active
         active - requires 2 from: +1  aamir.worlds@active, +1  aarav.worlds@active, +1  advik.worlds@active, +1  anya.worlds@active
 
 
 ## Actions
-
-This smart contract manages the fungible tokens related to Alien Worlds on the WAX blockchain. This is closely equivalent to the ERC20 contract on Ethereum based blockchains.
-
-Features include:
 
 * `create(name issuer, asset maximum_supply)` - creates a new token specifying the issuer, symbol and max supply.
   * requires auth `alien.worlds@active`
@@ -32,12 +33,12 @@ Features include:
 * Accounts Table - table to hold all the token balances
     * asset: balance
 
-* Currency Stats
+* Currency Stats to store global values about particular tokens.
     * asset: supply
     * asset: max_supply
     * name: issuer
 
-* Vesting Table
+* Vesting Table to store details of tokens that have been vested included amounts and timings.
     * name: account
     * time point: vesting_start
     * uint32: vesting_length

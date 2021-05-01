@@ -4,7 +4,7 @@
 
 The Alien Worlds gaming platform consists of a federation of planets. Each planet is governed as a DAC (Decentralised Autonomous Collective) where players of the game could participate in an election to appoint a board of custodians to govern each planet.
 
-The game play is around the interplay between the planets with the central interaction from the Alien Worlds Federation. This interplay is facilitated with a common token for the whole federation called Telium (TLM) and planet-specific tokens that are used for token-weighted governance of each planet. A new planet can be created with the permission of the federation and then will start receiving rewards (in the form of Telium tokens and NFTs) for performing tasks (mining and staking) and challenges within the Alien Worlds universe. With these rewards, each planet can then govern itself (as a DAC) to maximise the wealth and growth of everyone involved with each particular planet.
+The game play is around the interplay between the planets with the central interaction from the Alien Worlds Federation. This interplay is facilitated with a common token for the whole federation called Trilium (TLM) and planet-specific tokens that are used for token-weighted governance of each planet. A new planet can be created with the permission of the federation and then will start receiving rewards (in the form of Trilium tokens and NFTs) for performing tasks (mining and staking) and challenges within the Alien Worlds universe. With these rewards, each planet can then govern itself (as a DAC) to maximise the wealth and growth of everyone involved with each particular planet.
 
 Within the Alien Worlds universe, the Federation remains a central controller for the dispersion of TLM and centrally created Alien Worlds NFTs, creation of new planets and other master actions that apply to the governance of all planets.
 
@@ -20,7 +20,7 @@ The EOSIO blockchain protocol (the underlying blockchain technology of WAX), has
 ## Smart Contracts
 
 ### WAX blockchain
-[Federation](./federation.md) - Central administer of common management behaviour across all planets and NFTs
+[Federation](./federation.md) - Central administrator of common management behaviour across all planets and NFTs
 
 [Mining](./mining.md) - Used by all planets for controlling the mining actions and mining rewards so that users are able to earn tokens or NFTs from the land within each planet.
 

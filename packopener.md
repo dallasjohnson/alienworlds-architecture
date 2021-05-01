@@ -1,6 +1,13 @@
 # **PackOpener** smart contract:
 ## Blockchain account: `pack.worlds`
-## Permissions
+
+The Pack opener contract provides a mechanism to create and transfer packs of NFTs without the actual contents of the packs been known before the packs have been opened. The contents of the packs can be pre-configured with crates of potential NFTs with assigned probabilities for each crate but they would not be crystalised as actual NFTs until after the opening process along with the further input of a random value. 
+## Technical view of Permissions on chain
+**-- Permission Name** - Requirements to satisfy  
+
+**-- -- -- -- -- Child Permission Name** - Requirements to satisfy
+
+**-- -- -- -- -- -- -- Linked to Contract::Action**
 
     owner     1:    1 EOS8TpackZ64RR3zx7FiB4LrMqp5fRS343AvitC2sn842hcxBGRXA
         active     1:    1 EOS8TpackZ64RR3zx7FiB4LrMqp5fRS343AvitC2sn842hcxBGRXA
@@ -31,26 +38,26 @@ __Pack related actions:__
     
 *  `open(name account)` - For a user to be able to open a pack they must have deposited an asset with the matching symbol into this contract so it is visible in the deposit table with the user's account.
     * If a matching pack is found and it is active then the opening process can continue which involves requesting a random value from Wax random number generator.
-    * When the random number returns random assets or templates are chosen from the created assets table and a random amount of bonus tokens from the pack are also issued for the account opening the pack. All of these are added to a claim table and they then claimed in a deferred transaction. By claiming in a deferred transaction if there is a unexpected transaction failure during the claiming of assets (such as CPU timeout) the prepared assets from the random value processing will still be available for the user to claim as a separate blockchain transaction.
+    * When the random number returns, random assets or templates are chosen from the created assets table and a random amount of bonus tokens from the pack are also issued for the account opening the pack. All of these are added to a claim table and they then claimed in a deferred transaction. By claiming in a deferred transaction if there is a unexpected transaction failure during the claiming of assets (such as CPU timeout) the prepared assets from the random value processing will still be available for the user to claim as a separate blockchain transaction.
 
 ## Storage
-* Packs table
+* Packs table to store details of packs of cards that could be opened
     * name: packname
     * symbol: pack_symbol
     * extended_asset: bonus token
     * bool: active
-* Cards table
+* Cards table to store cards that could potentially be added to packs.
     * uint64: card id
     * name: pack name
     * vector<cardprob>: card probabilities
-* Crates table
+* Crates table to store the crates of NFTs that may be assigned to packs upon opening
     * name: crate name
     * name: type
     * vector<uint64>: ids
-* Deposits table
+* Deposits table to store the packs that have been deposited which would start the opening process.
     * name: account
     * asset: deposited asset
-* Claims table
+* Claims table to store the NFTs that are the result of opening available for a user to claim
     * name: account
     * vector<chosen card>: chosen cards
     * asset: fungible token

@@ -1,6 +1,14 @@
 # **Shining** smart contract:
 ## Blockchain account: `s.federation`
-## Permissions
+
+This contract manages the shining of NFT tokens. The owner of particular NFTs can transfer the NFT as well as a TLM amount to this contract in order to exchange the NFT for a different one. For an NFT type to be exchangeable for another type it needs to be added to the lookup table with an associated cost for the exchange. During the process of shining the old NFT that the user submits is destroyed and a new NFT is created. The Trilium deposited for the shining is also burnt so has the effect of decreasing the total Trilium in existence. 
+
+## Technical view of Permissions on chain
+**-- Permission Name** - Requirements to satisfy  
+
+**-- -- -- -- -- Child Permission Name** - Requirements to satisfy
+
+**-- -- -- -- -- -- -- Linked to Contract::Action**
 
     owner - requires federation @active
         active - requires PUB_K1_7sCYfweZorEdVrFuXMo79pF39rFcgjtShinEnWozGJYYgahsku
@@ -14,10 +22,6 @@
 
 ## Actions
 
-This smart contract manages the shining of NFT tokens. The owner of particular NFTs that can transfer the NFT as well as a TLM amount to this contract in order to exchange the NFT for a different one. For an NFT type to be exchangeable for another type it needs to be added to the lookup table with an associated cost for the exchange. 
-
-Features include:
-
 * `addlookup(uint32_t from, uint32_t to, asset cost, uint8_t qty, time_point_sec start_time, bool active)` - adds source and destination NFT template ids as well as a cost and start time and a flag to indicate if the exchange pair is activated.
   * requires auth `s.federation@active`
 * `tlmtransfer` - This tracks TLM deposits into this account and stores a record in the deposits table associated with the sender. 
@@ -27,7 +31,7 @@ Features include:
 
 ## Storage
 
-* Lookups Table - Potential NFTs that can be shined
+* Lookups Table to store potential NFTs that can be shined
     * uint32: from
     * uint32: to
     * uint8: qty
@@ -35,6 +39,6 @@ Features include:
     * time point sec: start time
     * bool: active
 
-* Deposits Table
+* Deposits Table to store temporary fungible token transfers to pay for shining actions. 
     * name: account
     * asset: quantity

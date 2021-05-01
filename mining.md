@@ -1,6 +1,17 @@
 # **Mining** smart contract
 ## Blockchain account: `m.federation`
-## Permissions
+A key activity within ther Alien Worlds universe is mining. Users must perform computational work to guess a large number that solves a mathmaticial puzzle within a particular number range as determined difficulty factors within this contract. This is similar to the Proof of Work mining algorithm as utilised in Bitcoin. 
+
+Miners would run the algorthm on their local machines until they get a result that would satisfy the difficulty set in the contract. Once they have a satifactory result they would submit it to the contract. Then once it has been checked to be satisfactory in the contract code it would pay out earnings as Trilium to the miner and the land owner along with a chance to also win an NFT for mining. The level of difficulty varies based on ease factors with the land, the luck factor of the miner. These different factors provide creative avenues for users to form strategies to maxmise the chances of winning the most Trilium or NFTs
+
+While the most frequently run actions on this contract will be mining there are some other actions to suport the mining such as setting parameters, filling the available Trilium and NFTs that could be mined, processing the random values required for part of the mining algorithm. The allowed permissions to run all these actions are resticted to the minimum allowed permissions to enable the mining operations to work. 
+
+## Technical view of Permissions on chain
+**-- Permission Name** - Requirements to satisfy  
+
+**-- -- -- -- -- Child Permission Name** - Requirements to satisfy
+
+**-- -- -- -- -- -- -- Linked to Contract::Action**
 
     owner - requires federation@active
         active - requires PUB_K1_8UNvtBz9Bs62Hoayf5HSaZMgfB26tEFMypjur2dfcHBR1GJTF1
@@ -26,8 +37,6 @@
                     federation::setprofitshr
 
 ## Actions
-
-This smart contract is the mining process that users of the app perform to earn NFTs and Telium tokens. The actions include:
     
 * `setparam(uint64_t key, uint64_t value)` - Creating and updating bots
   * requires auth: `m.federation@setparam` 
@@ -74,45 +83,45 @@ This smart contract is the mining process that users of the app perform to earn 
 
 ## Storage
 
-* Miners table
+* Miners table to store details about each miner's recent mining activity and current mining location.
     * name: miner
     * checksum256: last mine tx
     * time point sec: last mine
     * uint64: current land
 
-* bag table
+* bag table to store all the NFTs owned and locked by an account.
     * name: account
     * vector<uint64>: items
     * bool: locked
 
-* deposit table
+* deposit table to store temporary transfers as a deposit for filling the minin bucket per planet.
     * name: account
     * asset: quantity
 
-* rando table - Random number request queue
+* rando table to store random number request queue to random number processes to be performed in batches.
     * uint64: id
     * name: account
 
-* global values singleton
+* global values singleton to store shared global values
     * uint16: delay multiplier
     * uint16: luck multiplier
     * uint16: ease multiplier
 
-* state singleton
+* state singleton to store planet specific shared values related to mining.
     * time point: last fill time
     * double: fill rate
     * asset: bucket total
     * asset: mine bucket
 
-* mining nft table - NFTs held for mining rewards
+* mining nft table to store NFTs held for mining rewards
     * name: rarity
     * vector<uint32>: template ids
 
-* guest nft table - NFTs held for guest rewards, given to all landholders
+* guest nft table to store NFTs held for guest rewards, given to all landholders
     * name: id
     * uint16: probability
     * vector<uint64>: asset ids
 
-* claims table - Template ids that have been chosen, they must be claimed and minted in a separate tx so that the user cannot block the minting and get different nfts
+* claims table to store template ids that have been chosen, they must be claimed and minted in a separate tx so that the user cannot block the minting and get different nfts to game the system.
     * name: miner
     * vector<uint32>: template ids

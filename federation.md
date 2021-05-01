@@ -1,6 +1,20 @@
 # **Federation** smart contract
 ## Blockchain account: `federation`
-## Permissions
+
+Each of the planets in the Alien Worlds federation contributes and competes in a wider ecosystem where each planet and member involved in each planet can win or earn Trilium tokens or NFTs as well as performing various exchange intereactions with their planet specific token. In order to govern the rules and common behaviour between all the planets the Federation performs some key roles to hold everything together, including:
+* Managing the creation and updating of planets.
+* Managing the admission of users into the ecosystem and associating them with a planet.
+* Managing the creation and distribution of Trilium tokens to planets through mining rewards and inflation
+* Managing land ownership on planets and the associated profit share from mining on that land.
+* Managing the staking of Trilium tokens for staking rewards.
+
+The permissions to perform the actions on this contract are customised to ensure that only the minimum amount of access has been granted for that particular action to succeed. For example a user staking can only be performed by the individual user account that is staking. Planet claiming rewards can only be performed a planet account rather than an indidual user. The adminstrative actions such as managing planets requires the simultaneous permssion of multiple users as detailed in the `active` permission below. This ensures a high level of security and prevents potential mallicious or accidental harm caused by un-authoriseds users of the system.
+## Technical view of Permissions on chain
+**-- Permission Name** - Requirements to satisfy  
+
+**-- -- -- -- -- Child Permission Name** - Requirements to satisfy
+
+**-- -- -- -- -- -- -- Linked to Contract::Action**
     
     owner - requires weight of 3 from +1 aamir.worlds@active, +1 aarav.worlds@active, +1 advik.worlds@active, +1 anya.worlds@active
         active - requires weight of 2 from +1 aamir.worlds@active, +1 aarav.worlds@active, +1 advik.worlds@active, +1 anya.worlds@active
@@ -75,22 +89,23 @@ Handle daily planet claims (weighted by staking and number of NFTs held by plane
   * requires auth: WIP
 * `agreeterms(name account, uint16_t terms_id, checksum256 terms_hash)` - Capture agreement from users to terms
   * requires auth: `account@active`
-* `filllandpot` - distribute daily Telium (TLM) tokens to land owners pot. WIP
+* `filllandpot` - distribute daily Trilium (TLM) tokens to land owners pot. WIP
   * requires auth `federation@claim`
 
 ## Storage
+This contract stores the state relevent to all the planets, Land ownership, users and token staking.
 
-* State Singleton
+* State Singleton to store some global values that are needed by various contract actions.
     *  int64:  total stake
     *  uint32: nft genesis
     * uint64: nft total
     * timepointsec: last land fill
     * uint64: land rating total
-* User terms table
+* User terms table to store which versions of the terms and conditions each user has agreed to.
     * name:         account
     * int16:        terms id
     * checksum256:  terms hash
-* Planet table
+* Planet table to store planet specific global values used for various actions involving specif planets.
     * name:         planet name
     * string:       title
     * string:       metadata
@@ -99,10 +114,10 @@ Handle daily planet claims (weighted by staking and number of NFTs held by plane
     * int64:	total stake
     * int64:	nft multiplier
     * time point sec: last claim
-* Land registry table
+* Land registry table to store the ownership of different land parcels used for mining profit shares.
     * uint64: id;
     * name: owner
-* Map Table
+* Map Table to store details of NFTs as linked to map coordinates.
     * uint16: x
     * uint16: y
     * uint64: asset_id
@@ -115,7 +130,7 @@ Handle daily planet claims (weighted by staking and number of NFTs held by plane
     * asset: quantity;
     * time point sec: refund time;
     * name: planet name
-* Players table
+* Players table to store common details about all players.
     * name: account
     * uint64: avatar
     * string: tag
