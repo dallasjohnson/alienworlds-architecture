@@ -1,14 +1,18 @@
+---
+layout: default
+---
+
 # **Federation** smart contract
 ## Blockchain account: `federation`
 
-Each of the planets in the Alien Worlds federation contributes and competes in a wider ecosystem where each planet and member involved in each planet can win or earn Trilium tokens or NFTs as well as performing various exchange intereactions with their planet specific token. In order to govern the rules and common behaviour between all the planets the Federation performs some key roles to hold everything together, including:
+Each of the planets in the Alien Worlds federation contributes and competes in a wider ecosystem where each planet and member involved in each planet can win or earn Trilium tokens or NFTs as well as performing various exchange interactions with their planet specific token. In order to govern the rules and common behaviour between all the planets the Federation performs some key roles to hold everything together, including:
 * Managing the creation and updating of planets.
 * Managing the admission of users into the ecosystem and associating them with a planet.
 * Managing the creation and distribution of Trilium tokens to planets through mining rewards and inflation
 * Managing land ownership on planets and the associated profit share from mining on that land.
 * Managing the staking of Trilium tokens for staking rewards.
 
-The permissions to perform the actions on this contract are customised to ensure that only the minimum amount of access has been granted for that particular action to succeed. For example a user staking can only be performed by the individual user account that is staking. Planet claiming rewards can only be performed a planet account rather than an indidual user. The adminstrative actions such as managing planets requires the simultaneous permssion of multiple users as detailed in the `active` permission below. This ensures a high level of security and prevents potential mallicious or accidental harm caused by un-authoriseds users of the system.
+The permissions to perform the actions on this contract are customised to ensure that only the minimum amount of access has been granted for that particular action to succeed. For example, a user staking can only be performed by the individual user account that is staking. Planet claiming rewards can only be performed by a planet account rather than an individual user. The administrative actions such as managing planets require the simultaneous permission of multiple users as detailed in the `active` permission below. This ensures a high level of security and prevents potential malicious or accidental harm caused by unauthorised users of the system.
 ## Technical view of Permissions on chain
 **-- Permission Name** - Requirements to satisfy  
 
@@ -75,7 +79,7 @@ Manage staking of TLM (Once TLM is staked to the Fed contract planet DAC tokens 
     * requires auth of any valid account
 
 Handle daily planet claims (weighted by staking and number of NFTs held by planet and in total)
-* `claim(name planet_name)` - Used by planets to claim their rewards based on staked Trillium and NFTs held with the planet. Also ensure enough is held aside for a daily claim amount for Binance separately from all other planets.
+* `claim(name planet_name)` - Used by planets to claim their rewards based on staked Trilium and NFTs held with the planet. Also ensure enough is held aside for a daily claim amount for Binance separately from all other planets.
   * requires auth: `planet_name@active`
 * `logclaim(name planet_name, asset planet_quantity, asset mining_quantity)` log the claim action as an inline action for logging off-chain.
   * requires auth: `federation@log`

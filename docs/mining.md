@@ -1,10 +1,14 @@
+---
+layout: default
+---
+
 # **Mining** smart contract
 ## Blockchain account: `m.federation`
-A key activity within ther Alien Worlds universe is mining. Users must perform computational work to guess a large number that solves a mathmaticial puzzle within a particular number range as determined difficulty factors within this contract. This is similar to the Proof of Work mining algorithm as utilised in Bitcoin. 
+A key activity within their Alien Worlds universe is mining. Users must perform computational work to guess a large number that solves a mathematical puzzle within a particular number range as determined difficulty factors within this contract. This is similar to the Proof of Work mining algorithm as utilised in Bitcoin. 
 
-Miners would run the algorthm on their local machines until they get a result that would satisfy the difficulty set in the contract. Once they have a satifactory result they would submit it to the contract. Then once it has been checked to be satisfactory in the contract code it would pay out earnings as Trilium to the miner and the land owner along with a chance to also win an NFT for mining. The level of difficulty varies based on ease factors with the land, the luck factor of the miner. These different factors provide creative avenues for users to form strategies to maxmise the chances of winning the most Trilium or NFTs
+Miners would run the algorithm on their local machines until they get a result that would satisfy the difficulty set in the contract. Once they have a satisfactory result they would submit it to the contract. Then once it has been checked to be satisfactory in the contract code it would pay out earnings as Trilium to the miner and the landowner along with a chance to also win an NFT for mining. The level of difficulty varies based on ease factors with the land, the luck factor of the miner. These different factors provide creative avenues for users to form strategies to maximise the chances of winning the most Trilium or NFTs
 
-While the most frequently run actions on this contract will be mining there are some other actions to suport the mining such as setting parameters, filling the available Trilium and NFTs that could be mined, processing the random values required for part of the mining algorithm. The allowed permissions to run all these actions are resticted to the minimum allowed permissions to enable the mining operations to work. 
+While the most frequently run actions on this contract will be mining there are some other actions to support the mining, such as setting parameters, filling the available Trilium and NFTs that could be mined, processing the random values required for part of the mining algorithm. The allowed permissions to run all these actions are restricted to the minimum allowed permissions to enable the mining operations to work. 
 
 ## Technical view of Permissions on chain
 **-- Permission Name** - Requirements to satisfy  

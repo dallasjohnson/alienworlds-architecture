@@ -1,7 +1,11 @@
+---
+layout: default
+---
+
 # **PackOpener** smart contract:
 ## Blockchain account: `pack.worlds`
 
-The Pack opener contract provides a mechanism to create and transfer packs of NFTs without the actual contents of the packs been known before the packs have been opened. The contents of the packs can be pre-configured with crates of potential NFTs with assigned probabilities for each crate but they would not be crystalised as actual NFTs until after the opening process along with the further input of a random value. 
+The Pack opener contract provides a mechanism to create and transfer packs of NFTs without the actual contents of the packs been known before the packs have been opened. The contents of the packs can be pre-configured with crates of potential NFTs with assigned probabilities for each crate, but they would not be crystalised as actual NFTs until after the opening process, along with the further input of a random value. 
 ## Technical view of Permissions on chain
 **-- Permission Name** - Requirements to satisfy  
 
@@ -15,9 +19,9 @@ The Pack opener contract provides a mechanism to create and transfer packs of NF
 
 ## Features
 
-This smart contract manages packs of NFTs including the selection and packing of NFTs into each pack as well as the opening to reveal the contents of each pack to the new pack owner.
+This smart contract manages packs of NFTs, including the selection and packing of NFTs into each pack as well as the opening to reveal the contents of each pack to the new pack owner.
 ### Packs 
-A pack has a name, symbol and bonus token asset. Once a pack has been added it can also be edited, deleted or activated.
+A pack has a name, symbol and bonus token asset. Once a pack has been added, it can also be edited, deleted or activated.
 
 __Pack related actions:__
 
@@ -26,7 +30,7 @@ __Pack related actions:__
 * `editpack(name pack_name, symbol pack_symbol, extended_asset bonus_ft)`
 * `activatepack(name pack_name, bool active)`
 * `delpack(name pack_name)`
-*  Cards - Each pack has cards associated with them that are assigned with {crate, probability} tuples. All the probabilities for each card added to a pack must must add up to 100%. Once these cards are added to a pack their {crate, probability} values can be edited (as long as the total probabilities still totals to 100%. A card can also be deleted from a pack.
+*  Cards - Each pack has cards associated with them that are assigned with {crate, probability} tuples. All the probabilities for each card added to a pack must add up to 100%. Once these cards are added to a pack their {crate, probability} values can be edited (as long as the total probabilities still totals to 100%. A card can also be deleted from a pack.
     * `addcard(name pack_name, uint64_t card_id, vector<cardprob> card_probabilities)`
     * `editcard(uint64_t card_id, vector<cardprob> card_probabilities)`
     * `delcard(uint64_t card_id)`

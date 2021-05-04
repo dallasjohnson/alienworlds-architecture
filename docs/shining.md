@@ -1,7 +1,11 @@
+---
+layout: default
+---
+
 # **Shining** smart contract:
 ## Blockchain account: `s.federation`
 
-This contract manages the shining of NFT tokens. The owner of particular NFTs can transfer the NFT as well as a TLM amount to this contract in order to exchange the NFT for a different one. For an NFT type to be exchangeable for another type it needs to be added to the lookup table with an associated cost for the exchange. During the process of shining the old NFT that the user submits is destroyed and a new NFT is created. The Trilium deposited for the shining is also burnt so has the effect of decreasing the total Trilium in existence. 
+This contract manages the shining of NFT tokens. The owner of particular NFTs can transfer the NFT as well as a TLM amount to this contract in order to exchange the NFT for a different one. For an NFT type to be exchangeable for another type it needs to be added to the lookup table with an associated cost for the exchange. During the process of shining the old NFT that the user submits is destroyed and a new NFT is created. The Trilium deposited for the shining is also burnt so this has the effect of decreasing the total Trilium in existence.
 
 ## Technical view of Permissions on chain
 **-- Permission Name** - Requirements to satisfy  

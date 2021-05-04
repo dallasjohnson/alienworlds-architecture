@@ -1,7 +1,11 @@
+---
+layout: default
+---
+
 # **Alien Worlds token** smart contract:
 ## Blockchain account: `alien.worlds`
 
-This smart contract manages the fungible tokens related to Alien Worlds on the WAX blockchain. This is closely equivalent to the ERC20 contract on Ethereum based blockchains. It handles the ability to issue, burn, transfer and vest tokens. While most actions are common to token contracts on many types of blockchains the vesting in Alien worlds as the effect of locking Trilium for period and provides a mechanism for moving Trilium between the Wax and Ethereum based blockchains.
+This smart contract manages the fungible tokens related to Alien Worlds on the WAX blockchain. This is closely equivalent to the ERC20 contract on Ethereum based blockchains. It handles the ability to issue, burn, transfer and vest tokens. While most actions are common to token contracts on many types of blockchains the vesting in Alien worlds has the effect of locking Trilium for a period and provides a mechanism for moving Trilium between the Wax and Ethereum based blockchains.
 ## Technical view of Permissions on chain
 **-- Permission Name** - Requirements to satisfy  
 

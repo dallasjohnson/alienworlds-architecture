@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # **Vesting Solidity** smart contract:
 ## Ethereum blockchain account: `Vesting`
 
