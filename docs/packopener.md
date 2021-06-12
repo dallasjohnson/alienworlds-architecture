@@ -3,7 +3,7 @@ layout: default
 ---
 
 # **PackOpener** smart contract:
-## Blockchain account: `pack.worlds`
+## Blockchain account: `open.worlds`
 
 The Pack opener contract provides a mechanism to create and transfer packs of NFTs without the actual contents of the packs been known before the packs have been opened. The contents of the packs can be pre-configured with crates of potential NFTs with assigned probabilities for each crate, but they would not be crystalised as actual NFTs until after the opening process, along with the further input of a random value. 
 ## Technical view of Permissions on chain
@@ -16,6 +16,20 @@ The Pack opener contract provides a mechanism to create and transfer packs of NF
     owner     1:    1 EOS8TpackZ64RR3zx7FiB4LrMqp5fRS343AvitC2sn842hcxBGRXA
         active     1:    1 EOS8TpackZ64RR3zx7FiB4LrMqp5fRS343AvitC2sn842hcxBGRXA
 
+    owner     1:    1 PUB_K1_88QRopenyixg1TzjmArDpspfKAeK2jmkCygARfFmRFipp8k9ra
+        active    1:    1  PUB_K1_88QRopenyixg1TzjmArDpspfKAeK2jmkCygARfFmRFipp8k9ra
+            claim 1:        1  open.worlds @eosio.code
+                open.worlds::claim
+            issue 1:        1  open.worlds @eosio.code
+                alien.worlds::transfer
+                atomicassets::mintasset
+                atomicassets::transfer
+            log 1:      1  open.worlds @eosio.code
+                open.worlds::logopen
+            random 1:       1  open.worlds @eosio.code
+                orng.wax::requestrand
+
+
 
 ## Features
 
@@ -26,10 +40,13 @@ A pack has a name, symbol and bonus token asset. Once a pack has been added, it 
 __Pack related actions:__
 
 * `addpack(name pack_name, symbol pack_symbol, extended_asset bonus_ft, bool active)` - Adds a new pack
-  * requires auth ``
+  * requires auth `open.worlds@active`
 * `editpack(name pack_name, symbol pack_symbol, extended_asset bonus_ft)`
+  * requires auth `open.worlds@active`
 * `activatepack(name pack_name, bool active)`
+  * requires auth `open.worlds@active`
 * `delpack(name pack_name)`
+  * requires auth `open.worlds@active`
 *  Cards - Each pack has cards associated with them that are assigned with {crate, probability} tuples. All the probabilities for each card added to a pack must add up to 100%. Once these cards are added to a pack their {crate, probability} values can be edited (as long as the total probabilities still totals to 100%. A card can also be deleted from a pack.
     * `addcard(name pack_name, uint64_t card_id, vector<cardprob> card_probabilities)`
     * `editcard(uint64_t card_id, vector<cardprob> card_probabilities)`
@@ -42,7 +59,8 @@ __Pack related actions:__
     
 *  `open(name account)` - For a user to be able to open a pack they must have deposited an asset with the matching symbol into this contract so it is visible in the deposit table with the user's account.
     * If a matching pack is found and it is active then the opening process can continue which involves requesting a random value from Wax random number generator.
-    * When the random number returns, random assets or templates are chosen from the created assets table and a random amount of bonus tokens from the pack are also issued for the account opening the pack. All of these are added to a claim table and they then claimed in a deferred transaction. By claiming in a deferred transaction if there is a unexpected transaction failure during the claiming of assets (such as CPU timeout) the prepared assets from the random value processing will still be available for the user to claim as a separate blockchain transaction.
+*  `receiverand(uint64_t assoc_id, checksum256 random_value)` When the random number returns, random assets or templates are chosen from the created assets table and a random amount of bonus tokens from the pack are also issued for the account opening the pack. All of these are added to a claim table and they can then be claimed in a deferred transaction. 
+*  `claim(name account, name pack_name)` The claim action is called at the end of processing of the random returned value in a deferred transaction. If there is an unexpected transaction failure during the claiming of assets (such as CPU timeout) the prepared assets from the random value processing will still be available to be claimed as a separate blockchain transaction. If the claiming was performed as an inline action from within the `receiverand` both actions could potentially fail (or be forced to fail by the claim receiver) if they wanted to selectively choose which NFTs or bonus tokens they would be rewarded from the receiverand action. 
 
 ## Storage
 * Packs table to store details of packs of cards that could be opened
